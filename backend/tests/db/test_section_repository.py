@@ -179,7 +179,8 @@ def test_create_section_tree(db_session, test_document):
         "document_id": test_document.id,
         "title": section_tree[0]["title"],
         "level": section_tree[0]["level"],
-        "content": section_tree[0]["content"]
+        "content": section_tree[0]["content"],
+        "order": 0
     }
     parent = section_repository.create(db_session, obj_in=parent_data)
     
@@ -198,7 +199,7 @@ def test_create_section_tree(db_session, test_document):
     
     # Verify the structure
     # Get the parent section with its children
-    parent_with_children = section_repository.get_with_children(db_session, section_id=parent.id)
+    parent_with_children = section_repository.get_section_with_children(db_session, section_id=parent.id)
     assert parent_with_children.title == "Parent Section"
     assert len(parent_with_children.children) == 2
     assert parent_with_children.children[0].title == "Child Section 1"

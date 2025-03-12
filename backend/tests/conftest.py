@@ -3,7 +3,8 @@ Test fixtures for database testing
 """
 import os
 import pytest
-from sqlalchemy import create_engine
+import uuid
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import NullPool
 
@@ -17,33 +18,40 @@ from app.models.comment import Comment
 from app.models.annotation import Annotation
 from app.models.sharelink import ShareLink
 
-@pytest.fixture(scope="session")
-def database_url(postgresql_proc):
-    """
-    Create a PostgreSQL database URL from pytest-postgresql fixture
-    """
-    return f"postgresql://postgres:postgres@{postgresql_proc.host}:{postgresql_proc.port}/postgres"
+# Test database configuration
+TEST_DATABASE_URL = "postgresql://willpatrick@localhost:5432/test_scholarscribe"
 
 @pytest.fixture(scope="session")
-def engine(database_url):
+def engine():
     """
     Create a SQLAlchemy engine for the test database
     """
-    engine = create_engine(database_url, poolclass=NullPool)
+    # Create a unique test database for this test run
+    pg_url = "postgresql://willpatrick@localhost:5432/postgres"
+    temp_engine = create_engine(pg_url)
+    conn = temp_engine.connect()
+    conn.execute(text("COMMIT"))
+    
+    # Drop the test database if it exists and recreate it
+    conn.execute(text(f"DROP DATABASE IF EXISTS test_scholarscribe"))
+    conn.execute(text(f"CREATE DATABASE test_scholarscribe"))
+    conn.close()
+    temp_engine.dispose()
+    
+    # Connect to the test database
+    engine = create_engine(TEST_DATABASE_URL, poolclass=NullPool)
+    
+    # Create all tables
+    Base.metadata.create_all(engine)
+    
     yield engine
+    
+    # Cleanup - drop all tables and close connection
+    Base.metadata.drop_all(engine)
     engine.dispose()
 
-@pytest.fixture(scope="session")
-def create_tables(engine):
-    """
-    Create all database tables for testing
-    """
-    Base.metadata.create_all(engine)
-    yield
-    Base.metadata.drop_all(engine)
-
 @pytest.fixture
-def db_session(engine, create_tables):
+def db_session(engine):
     """
     Create a new database session for a test
     

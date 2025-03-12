@@ -38,11 +38,14 @@ class DocumentRepository(BaseRepository[Document, Dict[str, Any], Dict[str, Any]
     
     def increment_view_count(self, db: Session, *, document_id: UUID) -> Document:
         """
-        Increment the view count for a document
+        Increment the view count for a document and update last_viewed_at
         """
+        from datetime import datetime
+        
         document = self.get(db, id=document_id)
         if document:
             document.view_count = (document.view_count or 0) + 1
+            document.last_viewed_at = datetime.utcnow()
             db.add(document)
             db.commit()
             db.refresh(document)

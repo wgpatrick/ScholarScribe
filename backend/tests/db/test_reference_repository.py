@@ -27,7 +27,7 @@ def sample_reference_data():
         "raw_citation": "Smith, J. (2020). Test paper. Journal of Testing, 1(2), 123-456.",
         "title": "Test paper",
         "authors": ["Smith, J."],
-        "publication_year": "2020",
+        "publication_year": 2020,  # Using integer instead of string
         "journal_or_conference": "Journal of Testing",
         "doi": "10.1234/test",
         "url": "https://example.com/paper",
@@ -42,7 +42,7 @@ def sample_references_batch():
             "raw_citation": f"Author{i}, A. (202{i}). Paper {i}. Journal {i}, {i}({i}), {i}-{i+10}.",
             "title": f"Paper {i}",
             "authors": [f"Author{i}, A."],
-            "publication_year": f"202{i}",
+            "publication_year": 2020 + i,  # Using integer instead of string
             "journal_or_conference": f"Journal {i}",
             "order": i
         }

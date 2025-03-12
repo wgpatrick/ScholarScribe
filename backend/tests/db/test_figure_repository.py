@@ -27,7 +27,8 @@ def sample_section_data():
     return {
         "title": "Results",
         "level": 1,
-        "content": "This section contains figures and tables."
+        "content": "This section contains figures and tables.",
+        "order": 0  # Add order which is required
     }
 
 @pytest.fixture
