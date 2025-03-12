@@ -1,0 +1,32 @@
+{
+  "filename": "test_paper.pdf",
+  "processing_time_seconds": 0.13086700439453125,
+  "metadata": {
+    "title": "",
+    "authors": [],
+    "abstract": null,
+    "keywords": [],
+    "sections": [
+      {
+        "title": "BT",
+        "level": 2
+      },
+      {
+        "title": "ET",
+        "level": 2
+      },
+      {
+        "title": "0 7",
+        "level": 2
+      },
+      {
+        "title": "467",
+        "level": 2
+      },
+      {
+        "title": "%%EOF",
+        "level": 2
+      }
+    ]
+  }
+}

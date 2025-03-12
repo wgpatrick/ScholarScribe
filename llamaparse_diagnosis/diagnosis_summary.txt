@@ -1,0 +1,14 @@
+LlamaParse Diagnosis Summary
+==========================
+
+Test PDF: tests/pdf_corpus/papers/cs/attention_is_all_you_need.pdf
+
+Output File Sizes:
+- official_client_output.md: 2816 bytes
+- direct_client_output.md: 14138 bytes
+- integrated_client_output.md: 45836 bytes
+
+Line Counts:
+- official_client_output.md: 51 lines
+- direct_client_output.md: 146 lines
+- integrated_client_output.md: 495 lines
