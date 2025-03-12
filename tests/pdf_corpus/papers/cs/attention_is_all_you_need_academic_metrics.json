@@ -1,0 +1,16 @@
+{
+  "filename": "attention_is_all_you_need.pdf",
+  "processing_time_seconds": 0.29390525817871094,
+  "pages": 15,
+  "text_blocks": 485,
+  "images": 3,
+  "metadata": {
+    "title": "Attention Is All You Need",
+    "authors": [
+      "arXiv:1706.03762v7  [cs.CL]  2 Aug 2023"
+    ],
+    "abstract_length": 75
+  },
+  "sections": 27,
+  "references": 0
+}
