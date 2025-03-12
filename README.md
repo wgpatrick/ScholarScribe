@@ -31,12 +31,31 @@ ScholarScribe is an academic paper reader and note-taking application designed t
 
 ## Development Status
 
-This project is in active development with focus currently on:
-- Enhancing PDF parsing capabilities
-- Building the frontend interface
-- Implementing document storage and retrieval
+This project is in active development:
 
-See [PROJECT_PLAN.md](PROJECT_PLAN.md) for more details about the project roadmap.
+### Completed
+- Database implementation with SQLAlchemy
+- Repository pattern for data access with comprehensive tests
+- PDF parsing with LlamaParse integration
+- Structured data extraction
+- Storage service with local and S3 support
+- Document processing pipeline
+- Hierarchical section structure
+- Reference and figure extraction
+
+### Current Focus
+- Frontend development with React and TypeScript
+- User interface for document view and annotation
+- Enhanced PDF processing capabilities
+- API endpoint testing
+
+### Coming Soon
+- User authentication and access control
+- Sharing functionality
+- Advanced LLM features (summarization, term definitions)
+- Citation management
+
+See [TODO.md](TODO.md) for detailed progress tracking and upcoming tasks.
 
 ## License
 

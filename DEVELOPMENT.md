@@ -25,6 +25,8 @@ ScholarScribe/
 │   ├── migrations/        # Alembic database migrations
 │   ├── storage/           # Local file storage
 │   └── tests/             # Test files
+├── docs/                  # Project documentation
+│   └── DATA_MODEL.md      # Database schema and relations documentation
 ├── frontend/              # React frontend (to be implemented)
 ├── docker-compose.yml     # Docker services configuration
 ├── setup.sh               # Setup script
@@ -114,6 +116,37 @@ To connect to the PostgreSQL database:
    - Password: scholarscribe_password
    - Database: scholarscribe_db
 
+### Database Structure and Data Model
+
+The ScholarScribe database model is fully implemented with SQLAlchemy and includes:
+
+- **Document**: Central entity with metadata and content
+- **Section**: Hierarchical document structure with parent-child relationships
+- **Reference**: Citations and bibliography entries
+- **Figure**: Tables, images, and other visual elements
+- **Note**, **Comment**, **Annotation**: Different types of user content
+- **ShareLink**: Document sharing functionality
+
+All models use UUID primary keys for better distributed systems compatibility.
+
+The Repository Pattern is implemented to abstract database access:
+
+- **BaseRepository**: Generic CRUD operations for all models
+- **DocumentRepository**: Document-specific operations and queries
+- **SectionRepository**: Specialized for hierarchical section structure
+- **ReferenceRepository**: Bibliography and citation handling
+- **FigureRepository**: Figure and table management
+
+Transactions are managed through context managers to ensure atomic operations.
+
+The data model is documented in detail in [docs/DATA_MODEL.md](docs/DATA_MODEL.md), including:
+
+- Entity relationships and cardinality
+- Field definitions and data types
+- Implementation approach using SQLAlchemy
+
+When designing new features, consult this document to understand how data should be structured and stored.
+
 ### S3 Storage
 
 LocalStack provides an S3-compatible API at http://localhost:4566
@@ -133,13 +166,41 @@ Logs are written to both the console and `backend/app.log`. The log level can be
 
 ## Testing
 
-Run tests with pytest:
+The project includes comprehensive tests for the repository layer and API endpoints.
+
+### Repository Tests
+
+Tests for database repositories are located in `backend/tests/db/`:
 ```bash
 cd backend
-pytest
+# Install test dependencies
+pip install -r tests/requirements.txt
+
+# Run repository tests that interact with a real PostgreSQL database
+PYTHONPATH=$PYTHONPATH:/path/to/ScholarScribe/backend pytest -xvs tests/db/
 ```
 
-For more verbose output:
+These tests verify CRUD operations, hierarchical data handling, and relationships between entities.
+
+### API Tests
+
+Tests for API endpoints:
+```bash
+cd backend
+pytest tests/api/
+```
+
+### Full Flow Tests
+
+To test the complete document upload → processing → retrieval flow:
+```bash
+cd backend
+python test_full_flow.py tests/pdf_corpus/papers/cs/attention_is_all_you_need.pdf
+```
+
+This runs the full pipeline from PDF upload through LlamaParse processing to database storage.
+
+For more verbose output on any test:
 ```bash
 pytest -v
 ```
@@ -162,6 +223,15 @@ cd backend
 alembic revision --autogenerate -m "Description of changes"
 alembic upgrade head
 ```
+
+### Modifying the Data Model
+
+When you need to make changes to the data model:
+
+1. Update the SQLAlchemy models in `backend/app/db/models/`
+2. Update the [Data Model documentation](docs/DATA_MODEL.md) to reflect your changes
+3. Create and run an Alembic migration
+4. Update any affected API endpoints or services
 
 ### Accessing LLM Services
 
