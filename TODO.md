@@ -43,7 +43,7 @@ This document tracks all development tasks for the ScholarScribe project. As we 
   - [x] Implement Reference repository
   - [x] Implement Figure repository
   - [x] Add transaction management for multi-entity operations
-  - [ ] Create repository integration tests with actual database
+  - [x] Create repository integration tests with actual database
 - [ ] Implement repositories for user interaction models (Phase 3):
   - [ ] Implement Note repository
   - [ ] Implement Comment repository
