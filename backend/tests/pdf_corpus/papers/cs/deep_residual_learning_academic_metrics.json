@@ -1,0 +1,16 @@
+{
+  "filename": "deep_residual_learning.pdf",
+  "processing_time_seconds": 0.14197802543640137,
+  "pages": 12,
+  "text_blocks": 303,
+  "images": 0,
+  "metadata": {
+    "title": "Deep Residual Learning for Image Recognition",
+    "authors": [
+      "arXiv:1512.03385v1  [cs.CV]  10 Dec 2015"
+    ],
+    "abstract_length": 53
+  },
+  "sections": 20,
+  "references": 19
+}

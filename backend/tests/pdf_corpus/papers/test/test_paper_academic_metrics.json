@@ -1,0 +1,14 @@
+{
+  "filename": "test_paper.pdf",
+  "processing_time_seconds": 0.06406307220458984,
+  "pages": 1,
+  "text_blocks": 1,
+  "images": 0,
+  "metadata": {
+    "title": "ACADEMIC PAPER TITLE",
+    "authors": [],
+    "abstract_length": 0
+  },
+  "sections": 2,
+  "references": 0
+}
