@@ -55,3 +55,16 @@ Thumbs.db
 # Test output
 llamaparse_diagnosis/
 structured_extraction_results/
+*_output.md
+*_result.md
+*output*.md
+*output*.txt
+*result*.md
+*result*.txt
+*extraction*.md
+*extraction*.txt
+tests/pdf_corpus/metrics/
+tests/pdf_corpus/outputs/
+tests/pdf_corpus/papers/**/*.md
+tests/pdf_corpus/papers/**/*metrics.json
+tests/pdf_corpus/papers/**/*_comparison.md
