@@ -135,10 +135,13 @@ This document tracks all development tasks for the ScholarScribe project. As we 
   - [ ] Add loading states and progress indicators
   - [ ] Implement error boundary components
 
-- [ ] Phase 2: Document Navigation and Reading Experience
-  - [ ] Create OutlineNavigator for section navigation
+- [x] Phase 2: Document Navigation and Reading Experience (Initial Implementation)
+  - [x] Create OutlineNavigator for section navigation
+  - [x] Build jump-to-section functionality
+  - [x] Add reading progress indicator
+  - [x] Implement scroll spy for current section tracking
+  - [x] Add "back to top" button for long documents
   - [ ] Implement section summary display
-  - [ ] Build jump-to-section functionality
   - [ ] Create document header with metadata
   - [ ] Implement position synchronization between PDF and Markdown views
   - [ ] Add view state persistence for reading position

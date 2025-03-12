@@ -153,6 +153,9 @@ export const DocumentProvider = ({ children }: DocumentProviderProps) => {
       // Set the current section to the first section by default
       if (sections.length > 0) {
         setCurrentSection(sections[0].id);
+        
+        // Scroll to top of document
+        window.scrollTo({ top: 0, behavior: 'auto' });
       }
     } catch (err) {
       console.error('Error loading document:', err);
