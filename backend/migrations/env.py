@@ -13,7 +13,17 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Import the SQLAlchemy Base and models
 from app.db.database import Base
-from app.models.document import Document  # Import all models here
+# Import all models to ensure they are registered with SQLAlchemy
+from app.models import (
+    Document, 
+    Section, 
+    Note, 
+    Comment, 
+    Annotation, 
+    Reference, 
+    Figure, 
+    ShareLink
+)
 
 # Load environment variables
 load_dotenv()
