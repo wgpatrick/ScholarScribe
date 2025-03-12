@@ -44,65 +44,100 @@ We've decided on a two-phase development approach:
 
 ## Development Phases
 
-### Phase 1: PDF Upload & Structured Markdown Conversion
-- Upload and store PDFs
-- Develop robust PDF-to-Structured-Markdown pipeline using LlamaParse
-- Implement multi-layer fallback strategy with PyMuPDF for offline operation
-- Extract structured data from academic papers (headings, paragraphs, references, etc.)
-- Implement extensive testing with various academic paper formats
-- Refine the conversion pipeline until high quality is achieved
-- Display both formats with toggle between them
+### Phase 1: PDF Upload & Structured Markdown Conversion ✅
+- ✅ Upload and store PDFs with local and S3 storage services
+- ✅ Develop robust PDF-to-Structured-Markdown pipeline using LlamaParse
+- ✅ Implement multi-layer fallback strategy with PyMuPDF for offline operation
+- ✅ Extract structured data from academic papers (headings, paragraphs, references, figures)
+- ✅ Design and implement database models with comprehensive repository layer
+- ✅ Create test suite for validating repository functionality
+- ✅ Implement document processor for coordinating the complete pipeline
+- ✅ Create basic API endpoints for document operations
+- ✅ Validate complete flow from upload to structured data storage
 
-> **Note**: The PDF-to-Markdown conversion pipeline is the most critical component of the application. We've implemented LlamaParse as the primary method with local fallbacks to ensure robust operation in all scenarios.
+> **Status**: The PDF processing and backend functionality for Phase 1 are complete. We have implemented a robust pipeline with LlamaParse and fallback mechanisms. The database schema is implemented with repository patterns and comprehensive tests.
+
+### Phase 1.5: Frontend Development 🔄 (Current Focus)
+- 🔄 Set up React project with TypeScript
+- 🔄 Create document upload component
+- 🔄 Implement document list view
+- 🔄 Build document viewer with toggle between PDF and Markdown
+- 🔄 Add navigation for document sections
+- 🔄 Implement API client for backend communication
+- 🔄 Add user interface for viewing document structure
+- 🔄 Create visualization for references and figures
 
 ### Phase 2: Enhanced LLM Integration for Summaries
-- Build on the existing LlamaCloud integration 
-- Generate focused summaries for each section via appropriate LLMs
-- Extract key concepts from academic content
-- Display structured outline with summaries
+- ✅ Integrate with LlamaCloud API
+- 🔄 Generate focused summaries for each section via appropriate LLMs
+- 🔄 Extract key concepts from academic content
+- 🔄 Display structured outline with summaries
 
 ### Phase 3: Annotation System
-- Auto-detect domain-specific terms
-- Generate definitions using appropriate LLMs
-- Allow users to highlight text for custom definitions
-- Implement UI for viewing annotations
-- Create interactive popup system for annotations
+- ✅ Design database models for annotations
+- 🔄 Implement repository layer for annotation operations
+- 🔄 Auto-detect domain-specific terms
+- 🔄 Generate definitions using appropriate LLMs
+- 🔄 Allow users to highlight text for custom definitions
+- 🔄 Implement UI for viewing annotations
+- 🔄 Create interactive popup system for annotations
 
 ### Phase 4: Reference Extraction & Metadata
-- Parse references from the document
-- Fetch metadata from external APIs (CrossRef, PubMed, etc.)
-- Display reference data in side panel when clicked
+- ✅ Design and implement reference models
+- ✅ Parse references from the document
+- 🔄 Fetch metadata from external APIs (CrossRef, PubMed, etc.)
+- 🔄 Display reference data in side panel when clicked
 
 ### Phase 5: Sharing & Access Control
-- Generate shareable read-only links
-- Restrict editing capabilities for shared viewers
-- Hide PDF view for non-owners
+- ✅ Design database models for sharing functionality
+- 🔄 Implement repository layer for share links
+- 🔄 Generate shareable read-only links
+- 🔄 Restrict editing capabilities for shared viewers
+- 🔄 Hide PDF view for non-owners
 
-## Key Data Models
+## Key Data Models ✅
 
-1. **Documents**
-   - Basic metadata (title, authors if parsed)
-   - PDF storage path
+All data models have been implemented with SQLAlchemy ORM and use UUID primary keys.
+
+1. **Documents** ✅
+   - Basic metadata (title, authors, abstract)
+   - PDF metadata (path, hash, size)
+   - Processing information (status, method, time)
    - Markdown content
+   - View tracking (count, last viewed)
 
-2. **Sections**
+2. **Sections** ✅
+   - Hierarchical structure with parent-child relationships
    - Heading text and level
    - Section content
-   - Generated summary
+   - Order within parent section
+   - Metadata (word count, has_figures, has_tables, has_equations)
+   - Keywords
 
-3. **Annotations**
+3. **Annotations** ✅
    - Term or text snippet
    - Definition (auto or user-requested)
    - Position markers
+   - User-specific flags
 
-4. **References**
+4. **References** ✅
    - Raw citation text
-   - Extracted DOI (if available)
-   - Fetched metadata (title, abstract, citation count)
+   - Structured metadata (title, authors, year, venue)
+   - Extracted DOI and URL
+   - Order within document
 
-5. **Share Links**
+5. **Figures** ✅
+   - Figure type (figure, table, equation)
+   - Caption
+   - Reference ID (e.g., "Figure 1")
+   - Image path or content (for tables)
+   - Section relationship
+
+6. **Share Links** ✅
    - Document ID
    - Unique share key
+   - Access expiration
+   - View tracking
 
 ## Tech Stack
 
@@ -147,6 +182,17 @@ Features to consider after completing the MVP:
    - Compliance features for institutional use
    - Private LLM integration for sensitive documents
 
-## Timeline
+## Timeline and Progress
 
-The project will proceed through the 5 phases sequentially, with each phase building on the previous one. We'll track progress in our detailed to-do list.
+### Current Status
+- ✅ **Phase 1 (Backend)**: Complete - All backend functionality for PDF processing and database operations is implemented
+- 🔄 **Phase 1.5 (Frontend)**: In Progress - Building React frontend for document viewing and interaction
+- 🔄 **Phase 2-5**: Partially implemented in database schema, awaiting frontend and advanced features
+
+### Next Milestones
+1. Complete the frontend MVP for document viewing 
+2. Implement section navigation and reference display
+3. Add user authentication and document ownership
+4. Develop advanced LLM features for summaries and annotations
+
+We track detailed progress in [TODO.md](TODO.md)
