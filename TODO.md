@@ -26,25 +26,50 @@ This document tracks all development tasks for the ScholarScribe project. As we 
 ### Database Configuration
 - [x] Set up PostgreSQL with Docker
 - [x] Design comprehensive data model (see docs/DATA_MODEL.md)
-- [ ] Implement SQLAlchemy models:
-  - [ ] Document model with metadata fields
-  - [ ] Section model for document structure
-  - [ ] Note, Comment, and Annotation models for user interactions
-  - [ ] Reference model for citations
-  - [ ] Figure model for tables and images
-  - [ ] ShareLink model for document sharing
-- [ ] Set up SQLAlchemy and Alembic for migrations
-- [ ] Create initial migration script
-- [ ] Run initial migration
-- [ ] Create repository pattern for data access
-- [ ] Set up transaction management
+- [x] Implement SQLAlchemy models:
+  - [x] Document model with metadata fields
+  - [x] Section model for document structure
+  - [x] Note, Comment, and Annotation models for user interactions
+  - [x] Reference model for citations
+  - [x] Figure model for tables and images
+  - [x] ShareLink model for document sharing
+- [x] Set up SQLAlchemy and Alembic for migrations
+- [x] Create initial migration script
+- [x] Run initial migration
+- [x] Create base repository pattern for data access
+- [x] Complete repositories for core PDF processing flow:
+  - [x] Implement Document repository
+  - [x] Implement Section repository with hierarchical query support
+  - [x] Implement Reference repository
+  - [x] Implement Figure repository
+  - [x] Add transaction management for multi-entity operations
+  - [ ] Create repository integration tests with actual database
+- [ ] Implement repositories for user interaction models (Phase 3):
+  - [ ] Implement Note repository
+  - [ ] Implement Comment repository
+  - [ ] Implement Annotation repository
+  - [ ] Implement ShareLink repository
 
-### File Upload (Backend)
+### File Upload & Storage (Backend)
 - [x] Install dependencies (fastapi, python-multipart)
 - [x] Create basic storage module for files
-- [ ] Create full storage abstraction layer (works with local files now, S3 later)
-- [ ] Implement upload route with validation
-- [ ] Store document record in database
+- [x] Create full storage abstraction layer:
+  - [x] Implement consistent interface for both local files and S3
+  - [x] Add file metadata extraction (size, hash, etc.)
+  - [x] Create helper functions for generating storage paths
+  - [x] Add error handling for storage failures
+- [x] Create Pydantic schemas for API validation:
+  - [x] DocumentCreate schema for upload validation
+  - [x] DocumentResponse schema for API responses
+  - [x] Section schemas for hierarchical structure
+  - [x] Reference schemas for citation data
+  - [x] Figure schemas for visual elements
+- [x] Implement document upload workflow:
+  - [x] Create upload endpoint with multipart form support
+  - [x] Validate uploaded PDF (type, size, content)
+  - [x] Store PDF using storage abstraction
+  - [x] Create initial document record in database
+  - [x] Return document ID and metadata
 
 ### PDF to Structured Markdown Conversion (Critical Path)
 - [x] Evaluate and implement PDF parsing libraries:
@@ -63,10 +88,27 @@ This document tracks all development tasks for the ScholarScribe project. As we 
 - [x] Implement detailed error handling and logging
 - [x] Design multi-layer fallback strategy for robustness
 - [x] Create documentation for the parsing pipeline
-- [ ] Create conversion endpoint with detailed progress tracking
-- [ ] Update database with structured markdown text
-- [ ] Add conversion quality metrics
-- [ ] Develop iterative improvement process based on test results
+- [x] Create document processing service:
+  - [x] Implement asynchronous processing task queue
+  - [x] Create PDF conversion service integrated with database
+  - [x] Implement document update workflow with status tracking
+  - [x] Add detailed progress reporting
+  - [x] Create error recovery mechanisms for failed conversions
+- [x] Implement structured data extraction and storage:
+  - [x] Create section extraction service that builds hierarchical structure
+  - [x] Implement reference extraction and citation linking
+  - [x] Add figure and table extraction with proper section linking
+  - [x] Store all extracted entities in the database with proper relationships
+- [x] Create document processing endpoints:
+  - [x] Implement processing status endpoint
+  - [x] Create endpoint for retrieving processed document with sections
+  - [x] Add endpoint for document metadata with references
+  - [x] Create endpoint for retrieving figures/tables
+- [x] Implement comprehensive integration tests for the full workflow:
+  - [x] Test upload → process → retrieve workflow
+  - [x] Test error handling and recovery
+  - [x] Measure conversion quality and performance metrics
+  - [x] Create benchmarks for different paper types
 
 ### Frontend Integration
 - [ ] Set up React project with TypeScript
@@ -89,24 +131,35 @@ This document tracks all development tasks for the ScholarScribe project. As we 
 - [x] Create diagnostic tools for parser validation
 - [x] Implement various test scripts for different parsing methods
 - [x] Develop metrics collection for parser quality assessment
-- [ ] Set up test coverage reporting
-- [ ] Create test fixtures for database and file operations
-- [ ] Write integration tests for storage abstraction layer
-- [ ] Implement end-to-end tests for critical user flows
-- [ ] Set up test fixtures to mock LLM API calls
-- [ ] Create test automation for CI pipeline
-- [ ] Implement visual regression testing for frontend
+- [ ] Repository and Database Testing:
+  - [ ] Create database test fixtures with pytest-postgresql
+  - [ ] Implement repository unit tests for all CRUD operations
+  - [ ] Test complex queries (hierarchical sections, references)
+  - [ ] Test transaction management and error handling
+  - [ ] Verify cascade delete behavior
+- [ ] API and Integration Testing:
+  - [ ] Create test fixtures for file upload and storage testing
+  - [ ] Implement end-to-end tests for document upload workflow
+  - [ ] Test document processing pipeline with different paper types
+  - [ ] Create test fixtures to mock LLM API calls
+  - [ ] Test error scenarios and recovery mechanisms
+- [ ] CI/CD and Quality Assurance:
+  - [ ] Set up test coverage reporting with minimum 70% target
+  - [ ] Create test automation for CI pipeline
+  - [ ] Add performance benchmarks for processing time
+  - [ ] Implement visual regression testing for frontend (Phase 4+)
+  - [ ] Create integration tests for frontend-backend communication
 
 ## Phase 2: LLM Integration for Outline & Summaries
 
 ### Database Changes
-- [ ] Create sections table
-- [ ] Update migrations
+- [x] Create sections table
+- [x] Update migrations
 
 ### Heading Extraction
 - [x] Implement markdown heading parser in structured data extractor
 - [x] Build hierarchical section representation
-- [ ] Store sections in database
+- [x] Store sections in database
 
 ### LLM Integration
 - [x] Set up LlamaCloud API client with API key management
@@ -132,8 +185,8 @@ This document tracks all development tasks for the ScholarScribe project. As we 
 ## Phase 3: Annotation System
 
 ### Database Changes
-- [ ] Create annotations table
-- [ ] Update migrations
+- [x] Create annotations table
+- [x] Update migrations
 
 ### Automatic Term Detection
 - [ ] Implement term detection logic
@@ -160,14 +213,14 @@ This document tracks all development tasks for the ScholarScribe project. As we 
 ## Phase 4: Reference Extraction & Metadata
 
 ### Database Changes
-- [ ] Create references table
-- [ ] Update migrations
+- [x] Create references table
+- [x] Update migrations
 
 ### Reference Parsing
-- [ ] Implement reference section detection
-- [ ] Extract individual references
-- [ ] Parse DOIs or identifiers
-- [ ] Store in database
+- [x] Implement reference section detection
+- [x] Extract individual references
+- [x] Parse DOIs or identifiers
+- [x] Store in database
 
 ### External API Integration
 - [ ] Implement CrossRef/PubMed API client
@@ -189,8 +242,8 @@ This document tracks all development tasks for the ScholarScribe project. As we 
 ## Phase 5: Sharing & Access Control
 
 ### Database Changes
-- [ ] Create share_links table (no need for users table in MVP)
-- [ ] Update migrations
+- [x] Create share_links table (no need for users table in MVP)
+- [x] Update migrations
 
 ### Sharing Backend
 - [ ] Implement API key validation for admin access
