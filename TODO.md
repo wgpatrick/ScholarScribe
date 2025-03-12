@@ -110,19 +110,76 @@ This document tracks all development tasks for the ScholarScribe project. As we 
   - [x] Measure conversion quality and performance metrics
   - [x] Create benchmarks for different paper types
 
-### Frontend Integration
-- [ ] Set up React project with TypeScript
-- [ ] Create Context API providers for state management:
-  - [ ] DocumentContext for current document state
-  - [ ] UIContext for UI state (loading, errors, etc.)
-- [ ] Implement custom hooks for document operations
-- [ ] Create upload form component
-- [ ] Implement API client for backend communication
-- [ ] Create document view page with toggle between PDF and Markdown
-- [ ] Implement markdown rendering with syntax highlighting
-- [ ] Add loading states and progress indicators
-- [ ] Implement error boundary components
-- [ ] Create reusable UI components library
+### Frontend Development
+- [x] Project Setup and Infrastructure
+  - [x] Set up React project with TypeScript and Vite
+  - [x] Configure TailwindCSS for styling
+  - [x] Set up routing with React Router
+  - [x] Implement API client for backend communication
+  - [x] Create error handling and monitoring utilities
+
+- [x] Phase 1: Library Dashboard and Document Viewing (Initial Implementation)
+  - [x] Create main application layout (AppLayout)
+  - [x] Implement Library Dashboard with document grid/list
+  - [x] Build DocumentCard component for displaying documents
+  - [x] Create DocumentUploader with drag-and-drop and progress indicators
+  - [x] Implement document processing status display
+  - [x] Create document view page with Markdown rendering
+  - [x] Implement PDF/Markdown toggle functionality
+  - [x] Create basic document header with metadata display
+  - [x] Build Context API providers for state management:
+    - [x] LibraryContext for document collection
+    - [x] DocumentContext for current document
+    - [x] UIContext for interface state
+  - [ ] Implement PDF viewer with toggle functionality
+  - [ ] Add loading states and progress indicators
+  - [ ] Implement error boundary components
+
+- [ ] Phase 2: Document Navigation and Reading Experience
+  - [ ] Create OutlineNavigator for section navigation
+  - [ ] Implement section summary display
+  - [ ] Build jump-to-section functionality
+  - [ ] Create document header with metadata
+  - [ ] Implement position synchronization between PDF and Markdown views
+  - [ ] Add view state persistence for reading position
+  - [ ] Create custom hooks for document operations
+
+- [ ] Phase 3: Reference Display and Enhancement
+  - [ ] Implement reference linking in document text
+  - [ ] Create reference display in side panel
+  - [ ] Build reference detail view with metadata
+  - [ ] Add citation context display
+  - [ ] Implement document search functionality
+  - [ ] Create library organization features (tags, filtering)
+
+- [ ] Phase 4: Annotation and Comment System
+  - [ ] Implement text selection for annotations
+  - [ ] Create annotation display inline and in sidebar
+  - [ ] Build user comment creation interface
+  - [ ] Implement hover and click interactions
+  - [ ] Add comment styling and management tools
+  - [ ] Create AnnotationContext and CommentContext providers
+
+### Backend API Extensions
+- [ ] Annotation and Comment System API
+  - [ ] Create annotation CRUD endpoints
+  - [ ] Implement comment CRUD endpoints
+  - [ ] Add position anchoring system for annotations
+  - [ ] Create bulk operations for annotations/comments
+  - [ ] Implement filtering and pagination for annotations
+
+- [ ] Document Management Enhancements
+  - [ ] Add search functionality to document listing
+  - [ ] Implement sorting and filtering options for documents
+  - [ ] Create recently viewed documents tracking
+  - [ ] Add document tagging/organization functionality
+  - [ ] Implement section outline/TOC dedicated endpoint
+
+- [ ] Reading Experience Improvements
+  - [ ] Create position mapping between PDF and Markdown
+  - [ ] Implement in-text citation linking to references
+  - [ ] Add section summary generation endpoints
+  - [ ] Create document search within content endpoint
 
 ### Testing Strategy Implementation
 - [x] Set up pytest for backend testing
@@ -143,6 +200,14 @@ This document tracks all development tasks for the ScholarScribe project. As we 
   - [ ] Test document processing pipeline with different paper types
   - [ ] Create test fixtures to mock LLM API calls
   - [ ] Test error scenarios and recovery mechanisms
+  - [ ] Test new annotation and comment API endpoints
+  - [ ] Verify document search and filtering functionality
+- [ ] Frontend Testing:
+  - [ ] Set up Jest and React Testing Library
+  - [ ] Create component unit tests
+  - [ ] Implement integration tests for key user flows
+  - [ ] Add visual regression testing
+  - [ ] Test frontend-backend communication
 - [ ] CI/CD and Quality Assurance:
   - [ ] Set up test coverage reporting with minimum 70% target
   - [ ] Create test automation for CI pipeline

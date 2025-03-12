@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply text-gray-900 bg-gray-50;
+  }
+  
+  h1 {
+    @apply text-2xl font-bold mb-4;
+  }
+  
+  h2 {
+    @apply text-xl font-semibold mb-3;
+  }
+  
+  h3 {
+    @apply text-lg font-medium mb-2;
+  }
+
+  a {
+    @apply text-primary-600 hover:text-primary-800;
+  }
+  
+  pre {
+    @apply text-gray-800 bg-gray-50 p-4 rounded my-4 overflow-auto;
+  }
+  
+  code {
+    @apply text-gray-800 bg-gray-50 px-1 py-0.5 rounded;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300;
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+  }
+
+  .btn-accent {
+    @apply bg-accent-500 text-white hover:bg-accent-600;
+  }
+
+  .input {
+    @apply px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+
+  .navigation-item {
+    @apply px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md cursor-pointer;
+  }
+
+  .navigation-item-active {
+    @apply px-3 py-2 bg-primary-50 text-primary-700 rounded-md font-medium;
+  }
+
+  .comment {
+    @apply bg-yellow-50 px-2 py-1 rounded;
+  }
+
+  .annotation {
+    @apply underline decoration-dotted decoration-primary-500 cursor-help;
+  }
+}
+
+/* For PDF viewer */
+.react-pdf__Document {
+  @apply w-full;
+}
+
+.react-pdf__Page {
+  @apply w-full shadow-md my-4 bg-white;
+}
+
+.react-pdf__Page__canvas {
+  @apply w-full h-auto max-w-full object-contain mx-auto;
+}

@@ -43,22 +43,29 @@ The Journal Notebook project is progressing well, with significant achievements 
 
 ## Next Steps
 
-1. **Immediate Focus (1-2 Weeks)**
-   - Complete multi-column layout support
-   - Enhance heading detection with better hierarchy analysis
-   - Begin frontend development with React
+1. **Frontend Development (1-2 Weeks)**
+   - Set up React project with TypeScript and Vite
+   - Implement Library Dashboard with document grid/list
+   - Create document upload component with progress tracking
+   - Build basic document viewer with Markdown rendering
 
-2. **Short-Term Goals (3-4 Weeks)**
-   - Implement table and figure detection
-   - Develop citation linking
-   - Create basic frontend with PDF/Markdown toggle
-   - Integrate with OpenAI for document enhancement
+2. **Backend API Extensions (2-3 Weeks)**
+   - Create dedicated endpoints for document outline/TOC
+   - Enhance document listing with search and filtering
+   - Implement recently viewed document tracking
+   - Add API endpoints for position synchronization
 
-3. **Medium-Term Goals (2-3 Months)**
-   - Complete all Phase 1 and Phase 2 functionality
-   - Implement annotation system
-   - Add reference metadata extraction
-   - Create sharing functionality
+3. **Enhanced Reading Experience (3-4 Weeks)**
+   - Build section navigation in left sidebar
+   - Implement reference display in right sidebar
+   - Create PDF/Markdown toggle with position synchronization
+   - Develop citation linking functionality
+
+4. **Annotation and Comment System (4-6 Weeks)**
+   - Implement backend API endpoints for annotations and comments
+   - Create frontend components for text selection and annotation
+   - Build comment creation and management interface
+   - Implement hover and click interactions for annotations
 
 ## Challenges & Solutions
 

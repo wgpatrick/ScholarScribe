@@ -58,14 +58,27 @@ We've decided on a two-phase development approach:
 > **Status**: The PDF processing and backend functionality for Phase 1 are complete. We have implemented a robust pipeline with LlamaParse and fallback mechanisms. The database schema is implemented with repository patterns and comprehensive tests.
 
 ### Phase 1.5: Frontend Development 🔄 (Current Focus)
-- 🔄 Set up React project with TypeScript
-- 🔄 Create document upload component
-- 🔄 Implement document list view
-- 🔄 Build document viewer with toggle between PDF and Markdown
-- 🔄 Add navigation for document sections
-- 🔄 Implement API client for backend communication
-- 🔄 Add user interface for viewing document structure
-- 🔄 Create visualization for references and figures
+- 🔄 **Project Setup**
+  - 🔄 Set up React project with TypeScript and Vite
+  - 🔄 Configure TailwindCSS for utility-first styling
+  - 🔄 Implement routing with React Router
+
+- 🔄 **Library Dashboard**
+  - 🔄 Create document list/grid view
+  - 🔄 Implement document upload with drag-and-drop
+  - 🔄 Add processing status indicators
+  - 🔄 Build search and filter functionality
+
+- 🔄 **Document Viewer**
+  - 🔄 Implement toggle between PDF and Markdown views
+  - 🔄 Create position synchronization between views
+  - 🔄 Build section navigation sidebar
+  - 🔄 Add document header with metadata
+
+- 🔄 **State Management**
+  - 🔄 Implement Context API providers
+  - 🔄 Create custom hooks for document operations
+  - 🔄 Build API client for backend communication
 
 ### Phase 2: Enhanced LLM Integration for Summaries
 - ✅ Integrate with LlamaCloud API
