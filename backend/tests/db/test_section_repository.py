@@ -259,7 +259,8 @@ def test_update_section(db_session, test_document):
         "document_id": test_document.id,
         "title": "Original Title",
         "level": 1,
-        "content": "Original content"
+        "content": "Original content",
+        "order": 0  # Add required order field
     }
     section = section_repository.create(db_session, obj_in=section_data)
     
@@ -287,6 +288,7 @@ def test_delete_section(db_session, test_document):
         "document_id": test_document.id,
         "title": "Section to Delete",
         "level": 1,
+        "order": 0  # Add required order field
     }
     section = section_repository.create(db_session, obj_in=section_data)
     
@@ -306,6 +308,7 @@ def test_cascade_delete_sections(db_session, test_document):
         "document_id": test_document.id,
         "title": "Parent Section",
         "level": 1,
+        "order": 0  # Add required order field
     }
     parent = section_repository.create(db_session, obj_in=parent_data)
     
@@ -314,7 +317,8 @@ def test_cascade_delete_sections(db_session, test_document):
         "document_id": test_document.id,
         "title": "Child Section",
         "level": 2,
-        "parent_id": parent.id
+        "parent_id": parent.id,
+        "order": 0  # Add required order field
     }
     child = section_repository.create(db_session, obj_in=child_data)
     

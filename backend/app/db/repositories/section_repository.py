@@ -45,15 +45,37 @@ class SectionRepository(BaseRepository[Section, Dict[str, Any], Dict[str, Any]])
         Get the complete section tree for a document
         Returns all top-level sections with their children pre-loaded.
         """
-        # Build a recursive load of the entire section tree
-        return db.query(Section)\
-            .filter(
-                Section.document_id == document_id,
-                Section.parent_id == None
-            )\
-            .options(joinedload(Section.children).joinedload(Section.children).joinedload(Section.children))\
+        from sqlalchemy.orm import joinedload
+        
+        # Get all sections ordered by their order field
+        all_sections = db.query(Section)\
+            .filter(Section.document_id == document_id)\
             .order_by(Section.order)\
             .all()
+        
+        # Get the root sections (no parent)
+        root_sections = [s for s in all_sections if s.parent_id is None]
+        
+        # Create a dictionary of children by parent_id
+        children_by_parent = {}
+        for section in all_sections:
+            if section.parent_id:
+                if section.parent_id not in children_by_parent:
+                    children_by_parent[section.parent_id] = []
+                children_by_parent[section.parent_id].append(section)
+        
+        # Build the tree manually
+        def add_children(section):
+            if section.id in children_by_parent:
+                section.children = sorted(children_by_parent[section.id], key=lambda s: s.order)
+                for child in section.children:
+                    add_children(child)
+        
+        # Add children to root sections
+        for section in root_sections:
+            add_children(section)
+        
+        return root_sections
     
     def create_section_tree(self, db: Session, *, document_id: UUID, sections_data: List[Dict[str, Any]]) -> List[Section]:
         """
