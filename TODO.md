@@ -24,11 +24,15 @@ This document tracks all development tasks for the ScholarScribe project. As we 
 - [x] Create error monitoring dashboard
 
 ### Database Configuration
-- [ ] Set up PostgreSQL with Docker
-- [ ] Design SQLAlchemy models:
+- [x] Set up PostgreSQL with Docker
+- [x] Design comprehensive data model (see docs/DATA_MODEL.md)
+- [ ] Implement SQLAlchemy models:
   - [ ] Document model with metadata fields
-  - [ ] Define proper column types and relationships
-  - [ ] Add validation rules and constraints
+  - [ ] Section model for document structure
+  - [ ] Note, Comment, and Annotation models for user interactions
+  - [ ] Reference model for citations
+  - [ ] Figure model for tables and images
+  - [ ] ShareLink model for document sharing
 - [ ] Set up SQLAlchemy and Alembic for migrations
 - [ ] Create initial migration script
 - [ ] Run initial migration
