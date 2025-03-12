@@ -1,27 +1,27 @@
-# Journal Notebook - Detailed To-Do List
+# ScholarScribe - Detailed To-Do List
 
-This document tracks all development tasks for the Journal Notebook project. As we complete tasks, we'll mark them as done.
+This document tracks all development tasks for the ScholarScribe project. As we complete tasks, we'll mark them as done.
 
 ## Phase 1: PDF Upload & Markdown Conversion
 
 ### Project Setup
-- [ ] Initialize Git repository
-- [ ] Add .gitignore for Python and Node
-- [ ] Initialize backend (FastAPI)
-- [ ] Set up Docker and docker-compose for local development
-- [ ] Create health-check endpoint
-- [ ] Initialize frontend (React with Vite)
-- [ ] Set up environment/config files (.env for secrets)
+- [x] Initialize Git repository
+- [x] Add .gitignore for Python and Node
+- [x] Initialize backend (FastAPI)
+- [x] Set up Docker and docker-compose for local development
+- [x] Create health-check endpoint
+- [x] Initialize frontend (placeholder)
+- [x] Set up environment/config files (.env for secrets)
 
 ### Local Development Environment
+- [x] Configure local file storage for PDFs
+- [x] Configure detailed logging for critical components
+- [x] Implement structured error handling and reporting
 - [ ] Set up Docker container for PostgreSQL
 - [ ] Create development environment documentation
-- [ ] Configure local file storage for PDFs
 - [ ] Set up mock S3 service (or LocalStack) for testing
 - [ ] Implement centralized error logging system
 - [ ] Create error monitoring dashboard
-- [ ] Set up structured error response format
-- [ ] Configure detailed logging for critical components
 
 ### Database Configuration
 - [ ] Set up PostgreSQL with Docker
@@ -36,27 +36,33 @@ This document tracks all development tasks for the Journal Notebook project. As 
 - [ ] Set up transaction management
 
 ### File Upload (Backend)
-- [ ] Install dependencies (fastapi, python-multipart)
-- [ ] Create storage abstraction layer (works with local files now, S3 later)
-- [ ] Implement upload route
+- [x] Install dependencies (fastapi, python-multipart)
+- [x] Create basic storage module for files
+- [ ] Create full storage abstraction layer (works with local files now, S3 later)
+- [ ] Implement upload route with validation
 - [ ] Store document record in database
 
 ### PDF to Structured Markdown Conversion (Critical Path)
-- [ ] Set up PyMuPDF4LLM library
-- [ ] Create comprehensive PDF to Structured Markdown conversion utility
-- [ ] Implement robust parsing of academic paper structure:
-  - [ ] Accurate heading detection with hierarchy preservation
-  - [ ] Paragraph and text block identification
-  - [ ] Table and figure detection
-  - [ ] Reference section identification
-  - [ ] Citation linking
-- [ ] Build extensive test suite with diverse academic paper samples
+- [x] Evaluate and implement PDF parsing libraries:
+  - [x] PyMuPDF4LLM for local fallback
+  - [x] LlamaParse integration for cloud-based parsing
+- [x] Create comprehensive PDF to Structured Markdown conversion utility
+- [x] Implement robust parsing of academic paper structure:
+  - [x] Accurate heading detection with hierarchy preservation
+  - [x] Paragraph and text block identification
+  - [x] Table and figure detection
+  - [x] Reference section identification
+  - [x] Basic citation linking
+- [x] Build test suite with diverse academic paper samples
+- [x] Implement structured data extraction from parsed content
+- [x] Create fallback mechanisms for offline/failed parsing
+- [x] Implement detailed error handling and logging
+- [x] Design multi-layer fallback strategy for robustness
+- [x] Create documentation for the parsing pipeline
 - [ ] Create conversion endpoint with detailed progress tracking
 - [ ] Update database with structured markdown text
-- [ ] Implement detailed error handling and fallback options
 - [ ] Add conversion quality metrics
 - [ ] Develop iterative improvement process based on test results
-- [ ] Create documentation for the conversion pipeline
 
 ### Frontend Integration
 - [ ] Set up React project with TypeScript
@@ -73,14 +79,17 @@ This document tracks all development tasks for the Journal Notebook project. As 
 - [ ] Create reusable UI components library
 
 ### Testing Strategy Implementation
-- [ ] Set up pytest for backend testing with coverage reporting
+- [x] Set up pytest for backend testing
+- [x] Create mock dataset of diverse academic papers for testing
+- [x] Implement comparison testing for PDF conversion outputs
+- [x] Create diagnostic tools for parser validation
+- [x] Implement various test scripts for different parsing methods
+- [x] Develop metrics collection for parser quality assessment
+- [ ] Set up test coverage reporting
 - [ ] Create test fixtures for database and file operations
-- [ ] Create mock dataset of diverse academic papers for testing
-- [ ] Implement snapshot testing for PDF conversion outputs
-- [ ] Write comprehensive tests for PDF conversion pipeline (90%+ coverage target)
 - [ ] Write integration tests for storage abstraction layer
 - [ ] Implement end-to-end tests for critical user flows
-- [ ] Set up test fixtures to mock OpenAI API calls
+- [ ] Set up test fixtures to mock LLM API calls
 - [ ] Create test automation for CI pipeline
 - [ ] Implement visual regression testing for frontend
 
@@ -91,16 +100,18 @@ This document tracks all development tasks for the Journal Notebook project. As 
 - [ ] Update migrations
 
 ### Heading Extraction
-- [ ] Implement markdown heading parser
+- [x] Implement markdown heading parser in structured data extractor
+- [x] Build hierarchical section representation
 - [ ] Store sections in database
 
-### OpenAI GPT-4o Integration
-- [ ] Set up OpenAI API client with API key management
-- [ ] Create summary generation function using GPT-4o
-- [ ] Develop optimized prompts for academic content summarization
+### LLM Integration
+- [x] Set up LlamaCloud API client with API key management
+- [x] Implement LlamaParse for document parsing and structure extraction
+- [x] Develop optimized prompts for academic document parsing
+- [x] Implement fallback handling for API rate limits and connectivity issues
+- [ ] Create summary generation function using LLMs
 - [ ] Implement cost tracking and usage monitoring
 - [ ] Add caching layer to prevent duplicate LLM calls
-- [ ] Implement fallback handling for API rate limits
 - [ ] Create document summarization endpoint with progress tracking
 
 ### Frontend Components
