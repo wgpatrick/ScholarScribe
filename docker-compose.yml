@@ -5,13 +5,43 @@ services:
     image: postgres:14
     restart: always
     environment:
-      POSTGRES_USER: journal_user
-      POSTGRES_PASSWORD: journal_password
-      POSTGRES_DB: journal_db
+      POSTGRES_USER: scholarscribe_user
+      POSTGRES_PASSWORD: scholarscribe_password
+      POSTGRES_DB: scholarscribe_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scholarscribe_user -d scholarscribe_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@scholarscribe.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+      - "4510-4559:4510-4559"
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - localstack_data:/tmp/localstack
+      - "/var/run/docker.sock:/var/run/docker.sock"
 
 volumes:
   postgres_data:
+  localstack_data:
