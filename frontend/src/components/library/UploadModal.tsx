@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import DocumentUploader from './DocumentUploader'
 import ProcessingStatus from './ProcessingStatus'
-import { uploadDocument } from '../../api/documents'
+import { uploadDocument, getDocumentStatus } from '../../api/documents'
 import { useUI } from '../../context/UIContext'
 
 interface UploadModalProps {
@@ -26,32 +26,46 @@ const UploadModal = ({ isOpen, onClose, onUploadComplete }: UploadModalProps) =>
     setUploadProgress(10)
     
     try {
-      // Simulated progress for now
+      // Set up progress tracking
       const progressInterval = setInterval(() => {
         setUploadProgress(prev => {
           if (prev >= 90) {
-            clearInterval(progressInterval)
-            return 90
+            clearInterval(progressInterval);
+            return 90;
           }
-          return prev + 10
-        })
-      }, 500)
+          return prev + 5;
+        });
+      }, 500);
       
-      // In a real implementation, we would use uploadDocument from the API
-      // const response = await uploadDocument(selectedFile)
+      // Use the real API
+      const response = await uploadDocument(selectedFile);
       
-      // For now, simulate a response
-      await new Promise(resolve => setTimeout(resolve, 3000))
-      const mockDocumentId = Date.now().toString()
+      clearInterval(progressInterval);
+      setUploadProgress(100);
+      setDocumentId(response.id);
+      setProcessingStatus(response.processing_status);
       
-      clearInterval(progressInterval)
-      setUploadProgress(100)
-      setDocumentId(mockDocumentId)
-      setProcessingStatus('completed')
-      
-      // For production, use the commented code below
-      // setDocumentId(response.id)
-      // setProcessingStatus(response.processing_status)
+      // Poll for document status until completed or failed
+      if (response.processing_status === 'pending' || response.processing_status === 'processing') {
+        const statusCheckInterval = setInterval(async () => {
+          try {
+            // Get the current document status
+            const { status } = await getDocumentStatus(response.id);
+            
+            if (status === 'completed' || status === 'failed') {
+              clearInterval(statusCheckInterval);
+              setProcessingStatus(status);
+            }
+          } catch (error) {
+            console.error('Error checking document status:', error);
+          }
+        }, 2000);
+        
+        // Clean up interval after 5 minutes (maximum wait time)
+        setTimeout(() => {
+          clearInterval(statusCheckInterval);
+        }, 5 * 60 * 1000);
+      }
       
     } catch (error) {
       console.error('Upload error:', error)

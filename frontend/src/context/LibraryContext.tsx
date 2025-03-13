@@ -75,14 +75,16 @@ export const LibraryProvider = ({ children }: LibraryProviderProps) => {
     setError(null);
     
     try {
-      // Uncomment the below line to fetch from API when ready
-      // const data = await getDocuments();
-      // setDocuments(data);
-      
-      // For now, use mock data
-      // This setTimeout simulates network delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-      setDocuments(MOCK_DOCUMENTS);
+      // Try to fetch from API
+      try {
+        const data = await getDocuments();
+        setDocuments(data);
+      } catch (apiError) {
+        console.error('Error fetching documents from API, falling back to mock data:', apiError);
+        
+        // Fallback to mock data if API is not available
+        setDocuments(MOCK_DOCUMENTS);
+      }
     } catch (err) {
       console.error('Error fetching documents:', err);
       setError('Failed to load documents. Please try again.');

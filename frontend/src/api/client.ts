@@ -1,5 +1,6 @@
 // Base API client for making requests to the backend
 
+// Use API proxy configured in vite.config.ts
 const API_BASE_URL = '/api'
 
 interface ApiOptions {

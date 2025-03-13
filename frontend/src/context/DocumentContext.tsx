@@ -132,23 +132,27 @@ export const DocumentProvider = ({ children }: DocumentProviderProps) => {
     setError(null);
     
     try {
-      // Uncomment these lines when ready to fetch from API
-      // const documentWithSections = await getDocumentWithSections(id);
-      // setDocument(documentWithSections);
-      // setSections(documentWithSections.sections || []);
-      
-      // const referencesData = await getDocumentReferences(id);
-      // setReferences(referencesData);
-      
-      // const figuresData = await getDocumentFigures(id);
-      // setFigures(figuresData);
-      
-      // For now, use mock data
-      await new Promise(resolve => setTimeout(resolve, 700));
-      setDocument(createMockDocument(id));
-      setSections(createMockSections(id));
-      setReferences([]);
-      setFigures([]);
+      // Fetch document with sections from API
+      try {
+        const documentWithSections = await getDocumentWithSections(id);
+        setDocument(documentWithSections);
+        setSections(documentWithSections.sections || []);
+        
+        // Fetch references and figures
+        const referencesData = await getDocumentReferences(id);
+        setReferences(referencesData);
+        
+        const figuresData = await getDocumentFigures(id);
+        setFigures(figuresData);
+      } catch (error) {
+        console.error('Error fetching document from API, falling back to mock data:', error);
+        
+        // Fallback to mock data if API call fails
+        setDocument(createMockDocument(id));
+        setSections(createMockSections(id));
+        setReferences([]);
+        setFigures([]);
+      }
       
       // Set the current section to the first section by default
       if (sections.length > 0) {

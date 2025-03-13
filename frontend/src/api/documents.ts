@@ -114,5 +114,7 @@ export async function deleteDocument(id: string) {
  * Get document processing status
  */
 export async function getDocumentStatus(id: string) {
-  return api.get<{ status: Document['processing_status'] }>(`/documents/${id}/status`)
+  // Since there's no dedicated status endpoint, we'll get the document and check its status
+  const document = await api.get<Document>(`/documents/${id}`);
+  return { status: document.processing_status };
 }
